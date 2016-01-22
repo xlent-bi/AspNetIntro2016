@@ -1,7 +1,13 @@
-﻿@{
-    ViewBag.Title = "Calendar";
-}
+﻿@using AspNetIntro2016.Models;
 
-<h2>@ViewBag.year @ViewBag.month</h2>
+@model List<Day>
 
-<p>@ViewBag.data</p>
+
+<ul>
+    @foreach (var day in Model)
+    {
+        <li>
+            @day.ToString();
+        </li>
+    }
+</ul>

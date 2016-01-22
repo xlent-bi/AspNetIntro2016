@@ -25,10 +25,10 @@ namespace AspNetIntro2016.Controllers
             {
                 fetcher = new Models.CalendarFetcher(y);
             }
-            //ViewBag.data = fetcher.GetCalender();
+            var days = fetcher.GetCalender();
             ViewBag.data = fetcher.GetJsonString();
             ViewBag.year = year;
-            return View();
+            return View(days);
         }
 
     }
