@@ -10,20 +10,15 @@ namespace AspNetIntro2016.Controllers
     public class CalendarController : Controller
     {
         // GET: Calendar
-        public ActionResult Index()
+        public ActionResult Index(int? year, int? month)
         {
-            return View();
-        }
-        public ActionResult Calendar(int? year, int? month)
-        {
-
-            int y = (null != year) ? (int) year : 2016; //should be a default value of current year
+            int y = (null != year) ? (int)year : 2016; //should be a default value of current year
             //int m = (null != month) ? (int) month : 1; //should be a default value of current month
             Models.CalendarFetcher fetcher;
 
-            if(null != month)
+            if (null != month)
             {
-                fetcher = new Models.CalendarFetcher(y, (int) month);
+                fetcher = new Models.CalendarFetcher(y, (int)month);
                 ViewBag.month = month;
             }
             else
@@ -33,8 +28,8 @@ namespace AspNetIntro2016.Controllers
             //ViewBag.data = fetcher.GetCalender();
             ViewBag.data = fetcher.GetJsonString();
             ViewBag.year = year;
-
             return View();
         }
+
     }
 }
