@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body ng-app="CalendarModule">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -40,5 +40,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <!--Angular-->
+    <script language="javascript" src="/bower_components/angular/angular.min.js"></script>
+    <!--Modules-->
+    <script language="javascript" src="~/Scripts/angular/calendar.module.js"></script>
+    <!--Services-->
+    <script language="javascript" src="~/Scripts/angular/calender.factory.js"></script>
+    <!--Controllers-->
+    <script language="javascript" src="~/Scripts/angular/calendarHandling.controller.js"></script>
+
 </body>
 </html>

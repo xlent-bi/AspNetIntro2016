@@ -9,27 +9,31 @@ namespace AspNetIntro2016.Controllers
 {
     public class CalendarController : Controller
     {
+        private bool IsYear(int? year)
+        {
+            return (null != year) && (1 <= year) && (year <= 9999);
+        }
+        private bool IsMonth(int? month)
+        {
+            return (null != month) && (1 <= month) && (month <= 12);
+        }
         // GET: Calendar
         public ActionResult Index(int? year, int? month)
         {
-            int y = (null != year) ? (int)year : 2016; //should be a default value of current year
-            //int m = (null != month) ? (int) month : 1; //should be a default value of current month
+
+            int y = (IsYear(year)) ? (int)year : DateTime.Now.Year;
+            int m = (IsMonth(month)) ? (int)month : DateTime.Now.Month;
+
             Models.CalendarFetcher fetcher;
 
-            if (null != month)
-            {
-                fetcher = new Models.CalendarFetcher(y, (int)month);
-                ViewBag.month = month;
-            }
-            else
-            {
-                fetcher = new Models.CalendarFetcher(y);
-            }
-            var days = fetcher.GetCalender();
-            ViewBag.data = fetcher.GetJsonString();
-            ViewBag.year = year;
-            return View(days);
-        }
+            var date = new DateTime(y, m, 1);
 
+            fetcher = new Models.CalendarFetcher(y, m);
+            var days = fetcher.GetCalender();
+
+            var vmodel = new CalendarViewModel(date, days);
+
+            return View(vmodel);
+        }
     }
 }

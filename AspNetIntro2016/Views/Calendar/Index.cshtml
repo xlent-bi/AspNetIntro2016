@@ -1,13 +1,38 @@
 ﻿@using AspNetIntro2016.Models;
 
-@model List<Day>
+@model CalendarViewModel
 
+<div ng-controller="calendarHandlingController" ng-init="init(@Model.Date.Year, @Model.Date.Month)">
 
-<ul>
-    @foreach (var day in Model)
-    {
-        <li>
-            @day.ToString();
-        </li>
-    }
-</ul>
+    <div style="float:left; border-style:solid; width:150px; height:1000px">
+        <p>Filter:</p>
+        <input style="clear:both;" type="checkbox" name="filterfreedays" value="Workfreedays" ng-model="workfreedays" ng-change="filterWorkFreeDays()">
+        <label for="Workfreedays">Endast lediga dagar</label>
+        <input style="clear:both;" type="checkbox" name="filterweekends" value="Exkludeweekends" ng-model="weekends" ng-change="filterWeekends()">Exkludera helger<br>
+    </div>
+
+    <div style="height: 30px;">
+
+        <div style="float:left;">
+            <button type="button" ng-click="changeCalendar(year - 1, month);">{{year - 1}}</button>
+            <button type="button" ng-click="changeCalendar(year, month - 1)">Föregående månad</button>
+        </div>
+
+        <div style="float:right;">
+            <button type="button" ng-click="changeCalendar(year, month + 1)">Nästa månad</button>
+            <button type="button" ng-click="changeCalendar(year + 1, month);">{{year + 1}}</button>
+        </div>
+    </div>
+
+    <h2 style="text-align:center;"> @Model.Date.ToString("MMMM") </h2>
+
+    <div>
+        <ul>
+            <li ng-repeat="day in days">
+                <h3>{{day.Date}}</h3>
+                <span>{{day.WeekDay}}, Workfree day? {{ day.WorkFreeDay }}</span>
+            </li>
+        </ul>
+    </div>
+
+</div>

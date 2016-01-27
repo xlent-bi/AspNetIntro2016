@@ -75,16 +75,14 @@ namespace AspNetIntro2016.Models
 
                     foreach (var dayObj in jsonDs)
                     {
-                        days.Add(new Day()
-                        {
-                            Date = dayObj["datum"].ToString(),
-                            WeekDay = dayObj["veckodag"].ToString(),
-                            WorkFreeDay = dayObj["arbetsfri dag"].ToString(),
-                            RedDay = dayObj["r\u00F6d dag"].ToString(),
-                            Holiday = (null != dayObj["helgdag"]) ? dayObj["helgdag"].ToString() : null, //if dayObj["helgdag"] exists then holiday should be set to it. Null otherwise
-                            NamesDays = dayObj["namnsdag"].Children().Values<string>().ToList<string>()
-
-                        });
+                        days.Add(new Day(
+                           date: dayObj["datum"].ToString(),
+                           weekDay: dayObj["veckodag"].ToString(),
+                           workFreeDay: dayObj["arbetsfri dag"].ToString(),
+                           redDay: dayObj["r\u00F6d dag"].ToString(),
+                           holiday: (null != dayObj["helgdag"]) ? dayObj["helgdag"].ToString() : null, //if dayObj["helgdag"] exists then holiday should be set to it. Null otherwise
+                           namesDays: dayObj["namnsdag"].Children().Values<string>().ToList<string>()
+                        ));
                         var v = dayObj["namnsdag"].Children().Values<string>().ToList<string>();
                     }
                 }

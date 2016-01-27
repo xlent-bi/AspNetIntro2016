@@ -8,34 +8,55 @@ namespace AspNetIntro2016.Models
 {
     public class Day
     {
-        public string Date { get; set; }
-        public string WeekDay { get; set; }
-        public string WorkFreeDay { get; set; }
-        public string RedDay { get; set; }
-        public string Holiday { get; set; }
-        public List<string> NamesDays { get; set; }
+        public string Date { get; }
+        public string WeekDay { get; }
+        public bool WorkFreeDay { get; }
+        public bool RedDay { get; }
+        public string Holiday { get; }
+        public List<string> NamesDays { get; }
+
+        public Day(string date, string weekDay, string workFreeDay,
+            string redDay, string holiday, List<string> namesDays)
+        {
+            Date = date;
+            WeekDay = weekDay;
+            WorkFreeDay = workFreeDay.Equals("Ja");
+            RedDay = redDay.Equals("Ja");
+            Holiday = holiday;
+            NamesDays = namesDays;
+        }
+
         public override string ToString()
         {
             StringBuilder strB = new StringBuilder();
 
-            strB.Append("{ ")
+            strB.Append("{ Date: ")
                 .Append(Date)
-                .Append(", ")
+                .Append(", WeekDay: ")
                 .Append(WeekDay)
-                .Append(", ")
+                .Append(", WorkFreeDay: ")
                 .Append(WorkFreeDay)
-                .Append(", ")
+                .Append(", RedDay: ")
                 .Append(RedDay);
 
-            if( null != Holiday && !Holiday.Equals(String.Empty) )
+            if (null != Holiday && !Holiday.Equals(String.Empty))
             {
-                strB.Append(", " + Holiday);
+                strB.Append(", Holiday: " + Holiday);
             }
 
+            strB.Append(", NamesDays: [ ");
+            bool looped = false;
             foreach (var name in NamesDays)
             {
-                strB.Append(String.Format(", {0}", name));
+                if( looped )
+                {
+                    strB.Append(", ");
+                }
+                strB.Append(name);
+                looped = true;
             }
+            strB.Append(" ]");
+
             strB.Append(" }");
 
             return strB.ToString();
