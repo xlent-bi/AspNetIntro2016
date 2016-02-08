@@ -17,11 +17,31 @@
             $scope.month = month;
 
             CalendarFactory.fetchDays(year, month).then(function (response) {
-                $scope.days = response.data.Days;
                 $scope.daysOriginal = response.data.Days;
+                filter();
                 console.log($scope.daysOriginal);
             });
         };
+        
+        $scope.saveCalendar = function () {
+            console.log("passing: ");
+            console.log({ item: "str" });
+            $.ajax({
+                url: 'api/days/export',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ item: "str" }),
+                //dataType: "json",
+                success: function (result) {
+                    console.log('Yay! It worked!');
+                    // Or if you are returning something
+                    console.log('I returned... ' + result.str);
+                },
+                error: function (result) {
+                    console.log('Oh no :(');
+                }
+            });
+        }
 
         $scope.changeCalendar = function (year, month) {
             var y = (year);
@@ -39,19 +59,19 @@
         };
 
         var isWeekend = function (weekDay) {
-            console.log(weekDay);
+            //console.log(weekDay);
             return weekDay === "Lördag" || weekDay === "Söndag";
         }
 
         $scope.filter = {
-            workFreeDays: false,
+            workfreeDays: false,
             weekends: false
         }
-        
 
-        $scope.filterWorkFreeDays = function () {
-            $scope.filter.workFreeDays = !$scope.filter.workFreeDays;
-            console.log("filter work free days: " + $scope.filter.workFreeDays);
+
+        $scope.filterWorkfreeDays = function () {
+            $scope.filter.workfreeDays = !$scope.filter.workfreeDays;
+            console.log("filter work free days: " + $scope.filter.workfreeDays);
             filter();
         }
 
@@ -61,13 +81,29 @@
             filter();
         }
 
+        var workfreeDaysFiltering = function (day) {
+            console.log("should " + day + "be included in workfreeDays?");
+            return day["WorkFreeDay"];
+        }
+
+        var weekendFiltering = function (day) {
+            console.log("should " + day + " be included in no weekends?");
+            return !isWeekend(day["WeekDay"]);
+        }
+
         var filter = function () {
-            $scope.days = [];
-            var index = 0;
-            for (var day in $scope.daysOriginal) { //why is day just the index?
+            $scope.days = $scope.daysOriginal;
+            if ($scope.filter.workfreeDays) {
+                $scope.days = $scope.days.filter(workfreeDaysFiltering);
+            }
+            if ($scope.filter.weekends) {
+                $scope.days = $scope.days.filter(weekendFiltering);
+            }
+            /*
+            for (var index in $scope.daysOriginal) { //why is day just the index?
                 var toAdd = ( $scope.daysOriginal[index] );
                 var add = true;
-                if ($scope.filter.workFreeDays && !$scope.daysOriginal[index]["WorkFreeDay"]) {
+                if ($scope.filter.workfreeDays && !$scope.daysOriginal[index]["WorkFreeDay"]) {
                     add = false;
                 }
                 if ($scope.filter.weekends && isWeekend($scope.daysOriginal[index]["WeekDay"])) {
@@ -77,8 +113,8 @@
                 if (true === add) {
                     $scope.days.push(toAdd);
                 }
-                ++index;
             }
+            */
         }
 
     }]);

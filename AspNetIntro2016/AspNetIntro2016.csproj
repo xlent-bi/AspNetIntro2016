@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -218,6 +222,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Business\CalendarFetcher.cs" />
+    <Compile Include="Models\ExportCalendarViewModel.cs" />
     <Compile Include="Models\CalendarViewModel.cs" />
     <Compile Include="Models\Day.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -237,8 +242,7 @@
     <Content Include="Scripts\angular\calendar.module.js" />
     <Content Include="Scripts\angular\calendarFilter.controller.js" />
     <Content Include="Scripts\angular\calender.factory.js" />
-    <Content Include="Scripts\angular\dayCollection.controller.js" />
-    <Content Include="Scripts\angular\switchCalendar.controller.js" />
+    <Content Include="Scripts\angular\calendarHandling.controller.js" />
     <Content Include="Scripts\angular\buttonSwitchCalendar.directive.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

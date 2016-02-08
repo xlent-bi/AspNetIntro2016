@@ -6,7 +6,7 @@
 
     <div style="float:left; border-style:solid; width:150px; height:1000px">
         <p>Filter:</p>
-        <input style="clear:both;" type="checkbox" name="filterfreedays" value="Workfreedays" ng-model="workfreedays" ng-change="filterWorkFreeDays()">
+        <input style="clear:both;" type="checkbox" name="filterfreedays" value="Workfreedays" ng-model="workfreedays" ng-change="filterWorkfreeDays()">
         <label for="Workfreedays">Endast lediga dagar</label>
         <input style="clear:both;" type="checkbox" name="filterweekends" value="Exkludeweekends" ng-model="weekends" ng-change="filterWeekends()">Exkludera helger<br>
     </div>
@@ -23,6 +23,9 @@
             <button type="button" ng-click="changeCalendar(year + 1, month);">{{year + 1}}</button>
         </div>
     </div>
+
+
+    <button type="button" ng-click="saveCalendar();">Save Calendar</button>
 
     <h2 style="text-align:center;"> @Model.Date.ToString("MMMM") </h2>
 

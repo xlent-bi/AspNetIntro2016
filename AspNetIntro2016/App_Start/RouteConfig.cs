@@ -12,8 +12,7 @@ namespace AspNetIntro2016
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-
+                        
             routes.MapRoute(
                 name: "Calendar",
                 url: "Calendar/{year}/{month}",
